@@ -24,7 +24,7 @@ jobs:
             - name: Install PHP with extensions
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: '7.4'
+                  php-version: '8.1'
                   coverage: none
                   tools: composer:v2, php-cs-fixer:3
               env:
@@ -45,7 +45,7 @@ jobs:
             - name: Install PHP with extensions
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: '7.4'
+                  php-version: '8.1'
                   coverage: none
                   tools: composer:v2, composer-normalize:2
               env:
@@ -60,14 +60,11 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-
-            - name: Install Ruby 2.6
-              uses: actions/setup-ruby@v1
+            - uses: actions/checkout@v3
+            - uses: ruby/setup-ruby@v1
               with:
-                  ruby-version: '2.6'
-
+                  ruby-version: '3.0'
+                  bundler-cache: true
             - name: Install required gem
               run: gem install yaml-lint
 

@@ -52,12 +52,18 @@ class TitleFragmentServiceTest extends TestCase
             ->willReturn('');
 
         $executionContext = $this->createMock(ExecutionContextInterface::class);
-        $errorElement = $this->createErrorElement($executionContext);
+
+        $executionContext->expects(static::once())
+            ->method('getPropertyPath')
+            ->willReturn('propertyPath');
+
         $executionContext
             ->expects(static::once())
             ->method('buildViolation')
             ->with('Fragment Title - `Text` must not be empty')
             ->willReturn($this->createConstraintBuilder());
+
+        $errorElement = $this->createErrorElement($executionContext);
 
         $fragmentService->validate($errorElement, $fragment);
     }
@@ -73,12 +79,18 @@ class TitleFragmentServiceTest extends TestCase
             ->willReturn('A very long text over 255 characters. A very long text over 255 characters. A very long text over 255 characters. A very long text over 255 characters. A very long text over 255 characters. A very long text over 255 characters. A very long text over 255 characters.');
 
         $executionContext = $this->createMock(ExecutionContextInterface::class);
-        $errorElement = $this->createErrorElement($executionContext);
+
+        $executionContext->expects(static::once())
+            ->method('getPropertyPath')
+            ->willReturn('propertyPath');
+
         $executionContext
             ->expects(static::once())
             ->method('buildViolation')
             ->with('Fragment Text - `Text` must not be longer than 255 characters.')
             ->willReturn($this->createConstraintBuilder());
+
+        $errorElement = $this->createErrorElement($executionContext);
 
         $fragmentService->validate($errorElement, $fragment);
     }

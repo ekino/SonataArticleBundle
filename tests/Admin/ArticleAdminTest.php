@@ -18,6 +18,7 @@ use PHPUnit\Framework\TestCase;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Sonata\ArticleBundle\Admin\ArticleAdmin;
 use Sonata\ArticleBundle\Entity\AbstractArticle;
+use Sonata\ArticleBundle\Entity\AbstractFragment;
 
 class ArticleAdminTest extends TestCase
 {
