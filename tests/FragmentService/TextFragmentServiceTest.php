@@ -44,18 +44,25 @@ class TextFragmentServiceTest extends TestCase
         $fragmentService = $this->getFragmentService();
 
         $fragment = $this->createMock(FragmentInterface::class);
+
         $fragment
             ->method('getField')
             ->with('text')
             ->willReturn('');
 
         $executionContext = $this->createMock(ExecutionContextInterface::class);
-        $errorElement = $this->createErrorElement($executionContext);
+
+        $executionContext->expects(static::once())
+            ->method('getPropertyPath')
+            ->willReturn('propertyPath');
+
         $executionContext
             ->expects(static::once())
             ->method('buildViolation')
             ->with('Fragment Text - `Text` must not be empty')
             ->willReturn($this->createConstraintBuilder());
+
+        $errorElement = $this->createErrorElement($executionContext);
 
         $fragmentService->validate($errorElement, $fragment);
     }

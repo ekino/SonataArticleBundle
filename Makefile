@@ -88,7 +88,3 @@ test:
 coverage:
 	vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
 .PHONY: coverage
-
-docs:
-	cd docs && sphinx-build -W -b dirhtml -d _build/doctrees . _build/html
-.PHONY: docs

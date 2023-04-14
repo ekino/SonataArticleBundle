@@ -49,12 +49,18 @@ class AbstractFragmentServiceTest extends TestCase
             ->willReturn('');
 
         $executionContext = $this->createMock(ExecutionContextInterface::class);
-        $errorElement = $this->createErrorElement($executionContext);
+
+        $executionContext->expects(static::once())
+            ->method('getPropertyPath')
+            ->willReturn('propertyPath');
+
         $executionContext
             ->expects(static::once())
             ->method('buildViolation')
             ->with('Fragment fragmentService - `Backoffice Title` must not be empty')
             ->willReturn($this->createConstraintBuilder());
+
+        $errorElement = $this->createErrorElement($executionContext);
 
         $fragmentService->validate($errorElement, $fragment);
     }
